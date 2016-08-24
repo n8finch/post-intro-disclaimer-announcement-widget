@@ -1,6 +1,8 @@
 <?php
 
-class PIDA_Widget extends WP_Widget {
+namespace post_intro_disclaimer_announcement_widget\main;
+
+class PIDA_Widget extends \WP_Widget {
 
 	/**
 	 * Sets up the widgets name etc
@@ -24,8 +26,6 @@ class PIDA_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 
 		$widget_text = ! empty( $instance['text'] ) ? $instance['text'] : '';
-
-
 
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 
@@ -82,8 +82,31 @@ class PIDA_Widget extends WP_Widget {
 		$instance['filter'] = ! empty( $new_instance['filter'] );
 		return $instance;
 	}
-}
+} //end PIDA Widget Class
 
-add_action( 'widgets_init', function(){
-	register_widget( 'PIDA_Widget' );
+
+
+
+
+
+
+
+
+/**
+ * Register the Widget
+ */
+add_action( 'widgets_init', function() {
+	register_widget( __NAMESPACE__ . '\PIDA_Widget' );
 });
+
+/**
+ * Add Farbtastic Color Picker Styles and Scripts
+ */
+function pida_load_color_picker_script() {
+	wp_enqueue_script('farbtastic');
+}
+function pida_load_color_picker_style() {
+	wp_enqueue_style('farbtastic');
+}
+add_action('admin_print_scripts-widgets.php', 'sample_load_color_picker_script');
+add_action('admin_print_styles-widgets.php', 'sample_load_color_picker_style');
