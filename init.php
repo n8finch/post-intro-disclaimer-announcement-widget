@@ -45,18 +45,33 @@ function add_pida_widget_area_to_widgets() {
 	) );
 }
 
+//* If Genesis is being used, add the box to the post.
+add_action( 'genesis_before_entry_content', __NAMESPACE__ . '\add_pida_widget_to_post_in_genesis' );
+function add_pida_widget_to_post_in_genesis() {
 
-add_action( 'genesis_before_entry_content', __NAMESPACE__ . '\add_pida_widget_to_post' );
-
-
-function add_pida_widget_to_post() {
-
-	if ( is_active_sidebar( 'pida-widget-area' ) ) :
+	if ( is_single()  && is_active_sidebar( 'pida-widget-area' ) ) :
 		?>
 		<div id="pida-widget-area" class="widget-area" role="complementary">
 			<?php dynamic_sidebar( 'pida-widget-area' );
 			?>
 		</div><!-- #pida-widget-area-sidebar -->
 	<?php endif;
+}
+
+//* Otherwise, use a filter for standard WordPress themes.
+//add_filter( 'the_content', __NAMESPACE__ . '\add_pida_widget_to_post_in_wp', 999 );
+function add_pida_widget_to_post_in_wp( $content ) {
+
+	if ( is_single()  && is_active_sidebar( 'pida-widget-area' ) ) :
+
+		$pida_output = '<div id="pida-widget-area" class="widget-area" role="complementary">';
+		$pida_output .= dynamic_sidebar( 'pida-widget-area' );
+		$pida_output .=	'</div><!-- #pida-widget-area-sidebar -->';
+
+		$content = $pida_output . $content;
+
+		endif;
+
+	return $content;
 }
 

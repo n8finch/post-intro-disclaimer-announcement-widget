@@ -47,12 +47,18 @@ class PIDA_Widget extends \WP_Widget {
 		$pida_text = $instance['pida_text'];
 		$pida_background = $instance['pida_background'];
 
+		//Set defaults if variables are empty
+		( $pida_highlight == '' ) ? $pida_highlight = '#D2403F' : null;
+		( $pida_text == '' ) ? $pida_text = '#000' : null;
+		( $pida_background == '' ) ? $pida_background = '#ddd' : null;
 
 		echo $args['before_widget'];
 		?>
-		<div class="textwidget pida-widget" style="background-color: <?php echo $pida_background; ?>; color: <?php echo $pida_text; ?>; border-left: 3px solid <?php echo $pida_highlight; ?>;"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
+		<div class="textwidget pida-widget" style="padding: 10px 10px 10px 20px; margin-bottom: 20px; background-color: <?php echo $pida_background; ?>; color: <?php echo $pida_text; ?>; border-left: 3px solid <?php echo $pida_highlight; ?>;"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
 		<?php
 		echo $args['after_widget'];
+
+
 	}
 
 	/**
@@ -126,7 +132,7 @@ class PIDA_Widget extends \WP_Widget {
 		$instance['text'] = strip_tags($new_instance['text']);
 		$instance['pida_highlight'] = strip_tags($new_instance['pida_highlight']);
 		$instance['pida_text'] = strip_tags($new_instance['pida_text']);
-		$instance['pida_tbackground'] = strip_tags($new_instance['pida_background']);
+		$instance['pida_background'] = strip_tags($new_instance['pida_background']);
 		return $instance;
 	}
 } //end PIDA Widget Class
