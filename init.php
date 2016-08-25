@@ -67,30 +67,35 @@ function add_pida_widget_to_post_in_wp( $content ) {
 		$pida_options = get_option('widget_pida_widget');
 
 		//Get assign the pida_widget options to variables
-		$pida_text = $pida_options['2']['pida_text'];
-		$pida_categories = explode(',', str_replace(' ', '', $pida_options['2']['pida_categories']));
-		$pida_highlight = $pida_options['2']['pida_highlight'];
-		$pida_text_color = $pida_options['2']['pida_text'];
-		$pida_background = $pida_options['2']['pida_background'];
-
+		$current_key = key($pida_options);
+		$pida_text = $pida_options[$current_key]['pida_text'];
+		$pida_categories = $pida_options[$current_key]['pida_categories'];
+		$pida_highlight = $pida_options[$current_key]['pida_highlight'];
+		$pida_text_color = $pida_options[$current_key]['pida_text_color'];
+		$pida_background = $pida_options[$current_key]['pida_background'];
 
 		//If options are blank, provide defaults
 		( $pida_highlight == '' ) ? $pida_highlight = '#D2403F' : null;
 		( $pida_text_color == '' ) ? $pida_text_color = '#000' : null;
 		( $pida_background == '' ) ? $pida_background = '#ddd' : null;
 
+		d(key($pida_options));
+
+		//Build the pida_widget_block
 		if ( in_category( $pida_categories ) ) {
+
 			//Build the pida_widget_block
 			$pida_widget_block = '<div id="pida-widget-area" class="widget-area" role="complementary">';
+
 
 			$pida_widget_block .= '<div class="textwidget pida-widget" style="padding: 10px 10px 10px 20px; margin-bottom: 20px; background-color: ' . $pida_background . '; color: ' . $pida_text_color . '; border-left: 3px solid ' . $pida_highlight . ';"">' . $pida_text . '</div>';
 
 			$pida_widget_block .= '</div><!-- #pida-widget-area-sidebar -->';
 
-			$content =  $pida_widget_block . $content;
+			$content = $pida_widget_block . $content;
 		}
 
-	endif; //ends if is_single()  && is_active_sidebar( 'pida-widget-area' )
+		endif;
 
 	return $content;
 }

@@ -28,9 +28,8 @@ class PIDA_Widget extends \WP_Widget {
 		/** This filter is documented in wp-includes/widgets/class-wp-widget-pages.php */
 
 		$pida_text = ! empty( $instance['pida_text'] ) ? $instance['pida_text'] : '';
-		$pida_categories = ! empty( $instance['pida_categories'] ) ? $instance['pida_categories'] : '';
-		$pida_highlight = ! empty( $instance['pida_highlight'] ) ? $instance['pida_highlight'] : '';
-		$pida_text_color = ! empty( $instance['pida_text'] ) ? $instance['pida_text'] : '';
+		$pida_highlight = ! empty( $instance['pida_highlight'] ) ? $instance['highlight'] : '';
+		$pida_text_color = ! empty( $instance['pida_text_color'] ) ? $instance['pida_text_color'] : '';
 		$pida_background = ! empty( $instance['pida_background'] ) ? $instance['pida_background'] : '';
 
 		/**
@@ -44,7 +43,6 @@ class PIDA_Widget extends \WP_Widget {
 		 * @param WP_Widget_Text $this        Current Text widget instance.
 		 */
 		$pida_text = apply_filters( 'pida_text', $pida_text, $instance, $this );
-		$pida_categories = $instance['pida_categories'];
 		$pida_highlight = $instance['pida_highlight'];
 		$pida_text_color = $instance['pida_text_color'];
 		$pida_background = $instance['pida_background'];
@@ -70,6 +68,7 @@ class PIDA_Widget extends \WP_Widget {
 	 */
 	public function form( $instance ) {
 
+		$pida_text = esc_attr($instance['pida_text']);
 		$pida_categories = esc_attr($instance['pida_categories']);
 		$pida_highlight = esc_attr($instance['pida_highlight']);
 		$pida_text_color = esc_attr($instance['pida_text_color']);
@@ -98,12 +97,12 @@ class PIDA_Widget extends \WP_Widget {
 		<p><label for="<?php echo $this->get_field_id( 'pida_text' ); ?>"><?php _e( 'Content:' ); ?></label>
 			<textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('pida_text'); ?>" name="<?php echo $this->get_field_name('pida_text'); ?>"><?php echo esc_textarea( $instance['pida_text'] ); ?></textarea></p>
 
-		<!--Add Paragraphs-->
+		<!--Add Paragraphs Checkbox-->
 		<p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox"<?php checked( $filter ); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
 
-		<!--PIDA Category Input-->
+		<!--PIDA Categories Box-->
 		<p><label for="<?php echo $this->get_field_id( 'pida_categories' ); ?>"><?php _e( 'What category or categories of posts do you want to display this announcement in? Comma separate this list and be sure to <b><u>use the category slugs</u></b>, e.g. "blog, food-recipes, personal".' ); ?></label>
-			<input class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('pida_categories'); ?>" name="<?php echo $this->get_field_name('pida_categories'); ?>" placeholder="<?php echo _e('Current categories: ') . esc_textarea( $instance['pida_categories'] ); ?>"></p>
+			<input class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('pida_categories'); ?>" name="<?php echo $this->get_field_name('pida_categories'); ?>" value="<?php if($pida_categories) { echo $pida_categories; } ?>"></p>
 
 		<!--Highlight Color Picker-->
 		<p>
