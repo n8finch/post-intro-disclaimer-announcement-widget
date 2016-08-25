@@ -60,7 +60,7 @@ function add_pida_widget_to_post_in_wp( $content ) {
 		//Get assign the pida_widget options to variables
 		$current_key = key($pida_options);
 		$pida_text = $pida_options[$current_key]['pida_text'];
-		$pida_categories = $pida_options[$current_key]['pida_categories'];
+		$pida_categories = explode(',', str_replace(' ', '', $pida_options[$current_key]['pida_categories']));
 		$pida_highlight = $pida_options[$current_key]['pida_highlight'];
 		$pida_text_color = $pida_options[$current_key]['pida_text_color'];
 		$pida_background = $pida_options[$current_key]['pida_background'];
@@ -69,6 +69,9 @@ function add_pida_widget_to_post_in_wp( $content ) {
 		( $pida_highlight == '' ) ? $pida_highlight = '#D2403F' : null;
 		( $pida_text_color == '' ) ? $pida_text_color = '#000' : null;
 		( $pida_background == '' ) ? $pida_background = '#ddd' : null;
+
+		d($pida_categories);
+
 
 		//Build the pida_widget_block
 		if ( in_category( $pida_categories ) ) {
