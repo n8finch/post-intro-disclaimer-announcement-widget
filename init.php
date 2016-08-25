@@ -70,9 +70,6 @@ function add_pida_widget_to_post_in_wp( $content ) {
 		( $pida_text_color == '' ) ? $pida_text_color = '#000' : null;
 		( $pida_background == '' ) ? $pida_background = '#ddd' : null;
 
-		d($pida_categories);
-
-
 		//Build the pida_widget_block
 		if ( in_category( $pida_categories ) ) {
 
