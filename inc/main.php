@@ -14,7 +14,7 @@ class PIDA_Widget extends \WP_Widget {
 			'customize_selective_refresh' => true,
 		);
 		$control_ops = array( 'width' => 400, 'height' => 350 );
-		parent::__construct( 'my_widget', 'Post Intro Disclaimer Announcements', $widget_ops, $control_ops );
+		parent::__construct( 'pida_widget', 'Post Intro Disclaimer Announcements', $widget_ops, $control_ops );
 	}
 
 	/**

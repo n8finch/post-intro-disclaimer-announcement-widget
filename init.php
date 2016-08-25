@@ -46,9 +46,8 @@ function add_pida_widget_area_to_widgets() {
 }
 
 //* If Genesis is being used, add the box to the post.
-add_action( 'genesis_before_entry_content', __NAMESPACE__ . '\add_pida_widget_to_post_in_genesis' );
+//add_action( 'genesis_before_entry_content', __NAMESPACE__ . '\add_pida_widget_to_post_in_genesis' );
 function add_pida_widget_to_post_in_genesis() {
-
 	if ( is_single()  && is_active_sidebar( 'pida-widget-area' ) ) :
 		?>
 		<div id="pida-widget-area" class="widget-area" role="complementary">
@@ -59,16 +58,33 @@ function add_pida_widget_to_post_in_genesis() {
 }
 
 //* Otherwise, use a filter for standard WordPress themes.
-//add_filter( 'the_content', __NAMESPACE__ . '\add_pida_widget_to_post_in_wp', 999 );
+add_filter( 'the_content', __NAMESPACE__ . '\add_pida_widget_to_post_in_wp', 1, 1 );
 function add_pida_widget_to_post_in_wp( $content ) {
 
 	if ( is_single()  && is_active_sidebar( 'pida-widget-area' ) ) :
 
-		$pida_output = '<div id="pida-widget-area" class="widget-area" role="complementary">';
-		$pida_output .= dynamic_sidebar( 'pida-widget-area' );
-		$pida_output .=	'</div><!-- #pida-widget-area-sidebar -->';
+		//Get the options for the pida_widget
+		$pida_options = get_option('widget_pida_widget');
 
-		$content = $pida_output . $content;
+		//Get assign the pida_widget options to variables
+		$pida_text = $pida_options['2']['text'];
+		$pida_highlight = $pida_options['2']['pida_highlight'];
+		$pida_text_color = $pida_options['2']['pida_text'];
+		$pida_background = $pida_options['2']['pida_background'];
+
+		//If options are blank, provide defaults
+		( $pida_highlight == '' ) ? $pida_highlight = '#D2403F' : null;
+		( $pida_text_color == '' ) ? $pida_text_color = '#000' : null;
+		( $pida_background == '' ) ? $pida_background = '#ddd' : null;
+
+		//Build the pida_widget_block
+		$pida_widget_block = '<div id="pida-widget-area" class="widget-area" role="complementary">';
+
+		$pida_widget_block .= '<div class="textwidget pida-widget" style="padding: 10px 10px 10px 20px; margin-bottom: 20px; background-color: ' . $pida_background . '; color: ' . $pida_text_color . '; border-left: 3px solid ' . $pida_highlight . ';"">' . $pida_text . '</div>';
+
+		$pida_widget_block .= '</div><!-- #pida-widget-area-sidebar -->';
+
+		$content =  $pida_widget_block . $content;
 
 		endif;
 
