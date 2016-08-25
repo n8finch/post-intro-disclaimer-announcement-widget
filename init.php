@@ -15,15 +15,6 @@ namespace post_intro_disclaimer_announcement_widget;
 
 require_once plugin_dir_path( __FILE__ ) . 'inc/main.php';
 
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\add_these_plugin_styles_and_scripts' );
-
-function add_these_plugin_styles_and_scripts() {
-
-	wp_enqueue_style( 'included-styles', plugin_dir_url( __FILE__ ) . 'css/included_styles.css' );
-
-	wp_enqueue_script( 'included-js', plugin_dir_url( __FILE__ ) . 'js/included_js.js', array( 'jquery' ), false, false );
-
-}
 
 
 /**
