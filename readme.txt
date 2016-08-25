@@ -33,8 +33,11 @@ None so far! Ask questions here or at the GitHub link in the description.
 
 == Screenshots ==
 1. Drag the new PIDA widget to the new PIDA sidebar.
-2. Choose your settings (or just keep the defaults).
+2. Choose your settings (or just keep the defaults). You can use the color sliders to set the colors, or manually enter a hex code.
 3. Final result at the beginning of your content on post pages.
 
 == Changelog ==
 1.0.0 Initial version
+
+== Upgrade Notice ==
+None to date.
